@@ -50,6 +50,7 @@ def index():
     cash=db.execute("SELECT cash FROM users WHERE id=?",session["user_id"])
     cash_=cash[0]["cash"]
 
+    #store all the data into a dict so its easier to pass in to html
     display=[]
     total_share=0
     for row in rows:
