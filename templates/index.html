@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portofolio
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in display%}
+                {% if row.shares>0%}
+                    <Tr>
+                        <td>{{row.symbol}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.shares}}</td>
+                        <td>{{row.price}}</td>
+                        <td>{{row.total}}</td>
+                    </Tr>
+                {% endif%}
+            {% endfor%}
+                <td colspan="3"></td>
+                <td>Cash</td>
+                <td>{{ cash | usd }}</td>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>TOTAL</td>
+                <td>{{ total_money | usd }}</td>
+            </tr>
+        </tfoot>
+                </table>
+{% endblock %}
