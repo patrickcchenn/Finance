@@ -238,7 +238,7 @@ def sell():
         total=int(price)*int(shares)
 
         db.execute("INSERT INTO record(userID,transactions,symbol,price,t1) VALUES(?,?,?,?,strftime('%s','now'))",session["user_id"],(int(shares)*-1),quote["symbol"],price)
-        db.execute("UPDATE users SET cash=cash- (?) WHERE id=?",total,session["user_id"])
+        db.execute("UPDATE users SET cash=cash+ (?) WHERE id=?",total,session["user_id"])
 
         return redirect("/")
 
