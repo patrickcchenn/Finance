@@ -54,10 +54,11 @@ def index():
     display=[]
     total_share=0
     for row in rows:
-        symbol=row["symbol"]
-        name=lookup(row["symbol"])["name"]
-        shares=row["amount"]
-        price=float(lookup(row["symbol"])["price"])
+        symbol=str(row["symbol"])
+        print(symbol)
+        name=lookup(symbol)["name"]
+        shares=int(row["amount"])
+        price=float(lookup(symbol)["price"])
         total=float(shares) *price
         total_share+=total
         display.append({'symbol':symbol, 'name':name, 'shares':shares, 'price':price, 'total':total})
@@ -83,7 +84,7 @@ def buy():
 
         if not request.form.get("shares").isdigit():
             return apology("must be integer",400)
-            
+
         elif int(request.form.get("shares"))<1   :
             return apology("must be positive integer", 400)
 
