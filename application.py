@@ -186,7 +186,7 @@ def register():
             return apology("must provide username", 403)
 
         # Ensure password was submitted
-        elif not request.form.get("new_password"):
+        elif not request.form.get("password"):
             return apology("must provide password", 403)
 
         # Ensure comfirm password was submitted
@@ -194,7 +194,7 @@ def register():
             return apology("must comfirm password", 403)
 
         # Ensure  password matches
-        elif  request.form.get("comfirm_password") != request.form.get("new_password"):
+        elif  request.form.get("comfirm_password") != request.form.get("password"):
             return apology("Password not matches",403)
 
         # Ensure username is new(unique)
@@ -202,7 +202,7 @@ def register():
         if len(rows) != 0:
             return apology("username used", 403)
 
-        db.execute("INSERT INTO users (username,hash) VALUES (?,?)",request.form.get("username"),generate_password_hash(request.form.get("new_password")))
+        db.execute("INSERT INTO users (username,hash) VALUES (?,?)",request.form.get("username"),generate_password_hash(request.form.get("password")))
 
 
         # Redirect user to home page
