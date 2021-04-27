@@ -101,7 +101,7 @@ def buy():
         #BUY, STORE DATA IN REPOSITORY AND RECORD
 
         #record this transaction
-        db.execute("INSERT INTO record(userID,transactions,symbol,price,t1) VALUES(?,?,?,?,strftime('%Y-%m-%d %H:%M:%S','now'))",session["user_id"],int(shares),quote["symbol"],quote["price"])
+        db.execute("INSERT INTO record(userID,transactions,symbol,price,t1) VALUES(?,?,?,?,strftime('%Y-%m-%d %H:%M:%S','now'))",session["user_id"],int(shares),quote["symbol"],float(quote["price"]))
 
         #deduct the cash
         total=int(quote["price"])*int(shares)
