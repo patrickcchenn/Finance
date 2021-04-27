@@ -81,11 +81,11 @@ def buy():
         elif not request.form.get("shares"):
             return apology("must provide shares", 400)
 
+        if not request.form.get("shares").isdigit():
+            return apology("must be integer",400)
+            
         elif int(request.form.get("shares"))<1   :
             return apology("must be positive integer", 400)
-            
-        elif not request.form.get("shares").isdigit():
-            return apology("must be integer",400)
 
         elif lookup(request.form.get("symbol"))==None:
             return apology("Must be a valid symbol",400)
