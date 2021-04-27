@@ -7,7 +7,7 @@
 {% block main %}
     <form action="/sell" method="post">
         <div class="form-group">
-            <select name="sell">
+            <select name="symbol">
             <option disabled selected value="">Sell</option>
             {%for row in rows%}
                 {% if row.amount>0%}

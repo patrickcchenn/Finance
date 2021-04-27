@@ -226,7 +226,7 @@ def sell():
         if not request.form.get("shares"):
             return apology("Please enter how much u want to sell",400)
         #check if shares(amount) that are going to be sell less than owner's share.
-        sell=request.form.get("sell")
+        sell=request.form.get("symbol")
         shares=request.form.get("shares")
         amount=db.execute("SELECT SUM(transactions) as amount FROM record WHERE userID=? AND symbol=? GROUP BY symbol HAVING transactions",session["user_id"],sell)
         if amount[0]["amount"]<int(shares):
