@@ -75,17 +75,17 @@ def buy():
 
         # Ensure symbol was submitted
         if not request.form.get("symbol"):
-            return apology("must provide symbol", 403)
+            return apology("must provide symbol", 400)
 
         # Ensure shares was submitted
         elif not request.form.get("shares"):
-            return apology("must provide shares", 403)
+            return apology("must provide shares", 400)
 
         elif int(request.form.get("shares"))<1   :
-            return apology("must be positive integer", 403)
+            return apology("must be positive integer", 400)
 
         elif lookup(request.form.get("symbol"))==None:
-            return apology("Must be a valid symbol",403)
+            return apology("Must be a valid symbol",400)
 
         #ensure money>price
         quote=lookup(request.form.get("symbol"))
@@ -170,7 +170,7 @@ def quote():
     if request.method=="POST":
         quote=lookup(request.form.get("symbol"))
         if quote==None:
-            return apology("Invalid symbol",403)
+            return apology("Invalid symbol",400)
         price=usd(quote["price"])
         return render_template("quoted.html",quote=quote,price=price)
     else:
@@ -183,24 +183,24 @@ def register():
 
         # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+            return apology("must provide username", 400)
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            return apology("must provide password", 400)
 
         # Ensure comfirm password was submitted
         elif not request.form.get("confirmation"):
-            return apology("must comfirm password", 403)
+            return apology("must comfirm password", 400)
 
         # Ensure  password matches
         elif  request.form.get("confirmation") != request.form.get("password"):
-            return apology("Password not matches",403)
+            return apology("Password not matches",400)
 
         # Ensure username is new(unique)
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
         if len(rows) != 0:
-            return apology("username used", 403)
+            return apology("username used", 400)
 
         db.execute("INSERT INTO users (username,hash) VALUES (?,?)",request.form.get("username"),generate_password_hash(request.form.get("password")))
 
@@ -220,13 +220,13 @@ def sell():
     if request.method=='POST':
         #parameter is not filled
         if not request.form.get("shares"):
-            return apology("Please enter how much u want to sell",403)
+            return apology("Please enter how much u want to sell",400)
         #check if shares(amount) that are going to be sell less than owner's share.
         sell=request.form.get("sell")
         shares=request.form.get("shares")
         amount=db.execute("SELECT SUM(transactions) as amount FROM record WHERE userID=? AND symbol=? GROUP BY symbol HAVING transactions",session["user_id"],sell)
         if amount[0]["amount"]<int(shares):
-            return apology("You dont own that much shares",403)
+            return apology("You dont own that much shares",400)
 
         #record sell and add cash amount
         quote=lookup(sell)
