@@ -19,7 +19,7 @@
                 <Tr>
                     <td>{{row.symbol}}</td>
                     <td>{{row.transactions}}</td>
-                    <td>{{row.price}}</td>
+                    <td>{{row.price| usd}}</td>
                     <td>{{row.t1}}</td>
                 </Tr>
             {% endfor%}
