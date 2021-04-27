@@ -84,7 +84,7 @@ def buy():
         elif int(request.form.get("shares"))<1   :
             return apology("must be positive integer", 400)
             
-        elif isinstance(request.form.get("shares"), int)==False:
+        elif not request.form.get("shares").isdigit():
             return apology("must be integer",400)
 
         elif lookup(request.form.get("symbol"))==None:
@@ -95,7 +95,7 @@ def buy():
         shares=request.form.get("shares")
         cash=db.execute("SELECT cash FROM users WHERE id=?",session["user_id"])
         if cash[0]["cash"]<int(quote["price"])*int(shares):
-            return apology("You can't affort this/these",403)
+            return apology("You can't affort this/these",400)
 
         #BUY, STORE DATA IN REPOSITORY AND RECORD
 
