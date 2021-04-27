@@ -83,6 +83,9 @@ def buy():
 
         elif int(request.form.get("shares"))<1   :
             return apology("must be positive integer", 400)
+            
+        elif isinstance(request.form.get("shares"), int)==False:
+            return apology("must be integer",400)
 
         elif lookup(request.form.get("symbol"))==None:
             return apology("Must be a valid symbol",400)
