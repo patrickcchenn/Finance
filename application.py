@@ -182,7 +182,7 @@ def register():
     if request.method == "POST":
 
         # Ensure username was submitted
-        if not request.form.get("create_username"):
+        if not request.form.get("username"):
             return apology("must provide username", 403)
 
         # Ensure password was submitted
@@ -198,11 +198,11 @@ def register():
             return apology("Password not matches",403)
 
         # Ensure username is new(unique)
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("create_username"))
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
         if len(rows) != 0:
             return apology("username used", 403)
 
-        db.execute("INSERT INTO users (username,hash) VALUES (?,?)",request.form.get("create_username"),generate_password_hash(request.form.get("new_password")))
+        db.execute("INSERT INTO users (username,hash) VALUES (?,?)",request.form.get("username"),generate_password_hash(request.form.get("new_password")))
 
 
         # Redirect user to home page
