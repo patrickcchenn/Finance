@@ -190,11 +190,11 @@ def register():
             return apology("must provide password", 403)
 
         # Ensure comfirm password was submitted
-        elif not request.form.get("comfirm_password"):
+        elif not request.form.get("confirmation"):
             return apology("must comfirm password", 403)
 
         # Ensure  password matches
-        elif  request.form.get("comfirm_password") != request.form.get("password"):
+        elif  request.form.get("confirmation") != request.form.get("password"):
             return apology("Password not matches",403)
 
         # Ensure username is new(unique)
